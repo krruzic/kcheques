@@ -45,5 +45,7 @@ group :development do
   gem 'spring'
   # heroku asset serving and logging
   gem 'rails_12factor', group: :production
+  # more robust webserver
+  gem 'puma' 
 end
 
