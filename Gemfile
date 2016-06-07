@@ -49,6 +49,5 @@ group :development do
   gem 'puma' 
   # image manipulation with imagemagick
   gem 'rmagick'
-
 end
 
