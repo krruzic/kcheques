@@ -47,5 +47,8 @@ group :development do
   gem 'rails_12factor', group: :production
   # more robust webserver
   gem 'puma' 
+  # image manipulation with imagemagick
+  gem 'rmagick'
+
 end
 
