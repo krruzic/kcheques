@@ -103,6 +103,10 @@ class ChequesController < ApplicationController
       string_date = cheque_data[:creation].strftime("%B #{cheque_data[:creation].day.ordinalize}, %Y") # convert our date into words!
       money_parts = cheque_data[:money].to_s.split(".") # get the dollars and cents
       string_money = money_parts[0].to_i.to_words + " dollars" # dollars as words
+      name_to_write = cheque_data[:name]
+      # if cheque_data[:name] == ""
+      #   name_to_write = "No Name"
+      # end
       if money_parts.count > 1 # if we have any cents, get those
         string_money += " and " + money_parts[1].to_i.to_words + " cents" 
       end
@@ -110,7 +114,7 @@ class ChequesController < ApplicationController
 
       # draws the name entered
       name_text = Magick::Draw.new
-      name_text.annotate(cheque_image, 445, 28, 105, 144, cheque_data[:name]) {
+      name_text.annotate(cheque_image, 445, 28, 105, 144, name_to_write) {
                     self.pointsize = 24
                     self.stroke = 'transparent'
                     self.fill = '#000'
@@ -128,7 +132,7 @@ class ChequesController < ApplicationController
 
       # draws the money as a number
       money_text = Magick::Draw.new
-      money_text.annotate(cheque_image, 112, 33, 598+28, 120+25, cheque_data[:money].to_s) {
+      money_text.annotate(cheque_image, 112, 33, 598+22, 120+25, '%.2f' % cheque_data[:money].to_s) {
                     self.pointsize = 26
                     self.stroke = 'transparent'
                     self.fill = '#000'
