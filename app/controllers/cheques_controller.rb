@@ -1,5 +1,7 @@
 require 'to_words'
 require 'RMagick'
+require 'action_view'
+include ActionView::Helpers::NumberHelper
 
 class ChequesController < ApplicationController
   before_action :set_cheque, only: [:show, :destroy]
@@ -30,6 +32,7 @@ class ChequesController < ApplicationController
   # POST /cheques.json
   def create
     @cheque = Cheque.new(cheque_params)
+
 
     # bad validation here, but I don't understand how to do it properly
     if valid_money?(@cheque)
@@ -101,7 +104,7 @@ class ChequesController < ApplicationController
     # big messy function to draw on the image
     def create_cheque_image(cheque_data)
       string_date = cheque_data[:creation].strftime("%B #{cheque_data[:creation].day.ordinalize}, %Y") # convert our date into words!
-      money_parts = cheque_data[:money].to_s.split(".") # get the dollars and cents
+      money_parts = number_with_precision(cheque_data[:money], :precision => 2).to_s.split(".") # get the dollars and cents
       string_money = money_parts[0].to_i.to_words + " dollars" # dollars as words
       name_to_write = cheque_data[:name]
       # if cheque_data[:name] == ""
