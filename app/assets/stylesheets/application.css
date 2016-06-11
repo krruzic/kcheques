@@ -15,6 +15,7 @@
  *= require_tree
  *= require bootstrap-datetimepicker
 */
+/* so the header is right on the top and nothing goes under it. */
   body {
     padding-top: 70px;
   }

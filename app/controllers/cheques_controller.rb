@@ -2,7 +2,7 @@ require 'to_words'
 require 'RMagick'
 
 class ChequesController < ApplicationController
-  before_action :set_cheque, only: [:show, :edit, :update, :destroy]
+  before_action :set_cheque, only: [:show, :destroy]
 
   # GET /cheques
   # GET /cheques.json
@@ -78,17 +78,17 @@ class ChequesController < ApplicationController
       params.require(:cheque).permit(:name, :creation, :money)
     end
 
+    # big messy function to draw on the image
     def create_cheque_image(cheque_data)
-      string_date = cheque_data[:creation].strftime("%B #{cheque_data[:creation].day.ordinalize}, %Y")
-      money_parts = cheque_data[:money].to_s.split(".")
-      string_money = money_parts[0].to_i.to_words + " dollars"
-      if money_parts.count > 1
+      string_date = cheque_data[:creation].strftime("%B #{cheque_data[:creation].day.ordinalize}, %Y") # convert our date into words!
+      money_parts = cheque_data[:money].to_s.split(".") # get the dollars and cents
+      string_money = money_parts[0].to_i.to_words + " dollars" # dollars as words
+      if money_parts.count > 1 # if we have any cents, get those
         string_money += " and " + money_parts[1].to_i.to_words + " cents" 
       end
-      puts string_date
-      puts string_money.split.map(&:capitalize)*' '
+      cheque_image = Magick::ImageList.new("public/images/chequetemplate.png") # load up template image
 
-      cheque_image = Magick::ImageList.new("public/images/chequetemplate.png")
+      # draws the name entered
       name_text = Magick::Draw.new
       name_text.annotate(cheque_image, 445, 28, 105, 144, cheque_data[:name]) {
                     self.pointsize = 24
@@ -96,6 +96,8 @@ class ChequesController < ApplicationController
                     self.fill = '#000'
                     self.gravity = Magick::ForgetGravity
                         }      
+
+      # draws the money as words
       money_word_text = Magick::Draw.new
       money_word_text.annotate(cheque_image, 598, 28, 33, 168+15, string_money.split.map(&:capitalize)*' ') {
                     self.pointsize = 16
@@ -103,6 +105,8 @@ class ChequesController < ApplicationController
                     self.fill = '#000'
                     self.gravity = Magick::ForgetGravity
                         }      
+
+      # draws the money as a number
       money_text = Magick::Draw.new
       money_text.annotate(cheque_image, 112, 33, 598+28, 120+25, cheque_data[:money].to_s) {
                     self.pointsize = 26
@@ -110,6 +114,8 @@ class ChequesController < ApplicationController
                     self.fill = '#000'
                     self.gravity = Magick::ForgetGravity
                         }      
+
+      # finally draw the date
       date_text = Magick::Draw.new
       date_text.annotate(cheque_image, 189, 22, 424, 88, string_date) {
                     self.pointsize = 17
@@ -117,6 +123,7 @@ class ChequesController < ApplicationController
                     self.fill = '#000'
                     self.gravity = Magick::ForgetGravity
                         }
+      # save the image
       cheque_image.write("public/images/" + cheque_data[:creation].strftime("%Y%m%d") +  @cheque[:id].to_s + ".png")
     end
 end

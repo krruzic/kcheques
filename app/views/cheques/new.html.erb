@@ -1,5 +1,12 @@
-<h1>New Cheque</h1>
-
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/cheques" id="home">KCheques</a>
+    </div>
+    <!-- <div class="divider"></div> -->
+    <div class="divider"></div>
+  </div>
+</nav>
 <%= render 'form' %>
 
-<%= link_to 'Back', cheques_path %>
+<a href="<%= cheques_path %>" class="btn btn-info" style="margin-left: 10px">Back</a>

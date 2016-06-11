@@ -1,39 +1,45 @@
 <%= form_for(@cheque) do |f| %>
   <% if @cheque.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@cheque.errors.count, "error") %> prohibited this cheque from being saved:</h2>
-
-      <ul>
-      <% @cheque.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+    <% @cheque.errors.full_messages.each do |message| %>
+    <div class="alert alert-warning" id="error_explanation">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
+        <%= message %>
       <% end %>
-      </ul>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :creation %><br>
-    <%= f.hidden_field :creation, {:id => 'date_id', :value => Time.now.strftime('%Y-%m-%d')} %>
-    <div style="overflow:hidden;">
-    <div class="form-group">
-        <div class="row">
-            <div class="col-md-4">
-                <div id="datetimepicker12"></div>
-            </div>
+<div class="content">
+  <div class="container">
+    <div class="row"></div>
+    <div class="col-md-2"></div>
+    <div class="col-md-8" style="padding-bottom: 10px">
+      <div class="panel panel-info" style="margin: 20px">
+      <div class="panel-heading"><h3 class="panel-title pull-left">New Cheque</h3>
+        <%= f.submit :class => "btn btn-default pull-right actions"%>
+      <div class="clearfix"></div>
+      </div>
+      <div class="row pull-center">
+        <div class="col-md-2"></div>
+        <div class="col-md-4 field" style="margin: 1em">
+          <%= f.text_field :name, :class => "form-control", :placeholder => "Name"%><br>
+          <%= f.text_field :money, :class => "form-control", :placeholder => "Amount"%><br>
         </div>
+        <div class="field" style="margin: 1em">
+          <%= f.hidden_field :creation, {:id => 'date_id', :value => Time.now.strftime('%Y-%m-%d')} %>
+          <div style="overflow:hidden;">
+          <div class="form-group">
+              <div class="row">
+                  <div class="col-md-4">
+                      <div id="datetimepicker12"></div>
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
     </div>
   </div>
 </div>
-  <div class="field">
-    <%= f.label :money %><br>
-    <%= f.text_field :money, :value => 123.23%>  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
       <script type="text/javascript">
         $(function () {
             $('#datetimepicker12').datetimepicker({

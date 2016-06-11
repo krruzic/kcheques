@@ -1,19 +1,40 @@
-<p id="notice"><%= notice %></p>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/cheques" id="home">KCheques</a>
+    </div>
+    <!-- <div class="divider"></div> -->
+    <ul class="nav navbar-nav navbar-right" style="padding-right: 12px">
+      <li>
+        <p class="navbar-btn"><a class="btn btn-success" href=<%= new_cheque_path %>>New Cheque</a></p>
+      </li>
+    </ul>
+    <div class="divider"></div>
+  </div>
+</nav>
 
-<p>
-  <strong>Name:</strong>
-  <%= @cheque.name %>
-</p>
-
-<p>
-  <strong>Creation:</strong>
-  <%= @cheque.creation %>
-</p>
-
-<p>
-  <strong>Value:</strong>
-  <%= @cheque.money %>
-</p>
-
-<%= link_to 'Edit', edit_cheque_path(@cheque) %> |
-<%= link_to 'Back', cheques_path %>
+<div class="content">
+  <div class="container">
+    <div class="row">
+    </div>
+    <div class="row">
+    <div class="col-md-3" style="padding-bottom: 10px"></div>
+      <div class="col-md-6" style="padding-bottom: 10px">
+        <div class="panel panel-info" style="margin: 20px">
+          <div class="panel-heading">
+          <h3 class="panel-title pull-left">
+            <%= @cheque.name %> | <%= @cheque.creation.strftime("%B #{@cheque.creation.day.ordinalize}, %Y") %></h3>
+          <a class="btn btn-default pull-right" href=<%= "public/" + @cheque.creation.strftime("%Y%m%d") + @cheque.id.to_s + ".png"%>><span class="glyphicon glyphicon-download"></span></a>
+          <div class="clearfix"></div>
+          </div>
+          <ul class="list-group">
+            <li class="list-group-item">Amount<p class="pull-right" style="text-right">$<%= @cheque.money %></p></li>
+          </ul>
+          <div class="panel-body"><%= image_tag @cheque.creation.strftime("%Y%m%d") + @cheque.id.to_s + ".png", class: "img-responsive center-block" %></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<a href="<%= cheques_path %>" class="btn btn-info" style="margin-left: 10px">Back</a>
