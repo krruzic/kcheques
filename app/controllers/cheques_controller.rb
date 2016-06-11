@@ -88,11 +88,14 @@ class ChequesController < ApplicationController
         cents = money_parts[1].to_i
       end
       if (cents.to_s.size > 2)
+        puts "2many decimals"
         return false
       end 
-      if (dollars+cents < 0) or (dollars > 9999)
+      if (dollars+cents <= 0) or (dollars > 9999)
+        puts "over 9000!"
         return false
       end
+      return true
     end 
 
     # big messy function to draw on the image
