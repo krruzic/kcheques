@@ -14,3 +14,6 @@
 
 # Ignore env configuration
 .env
+
+# Ignore test images
+/public/images/20*

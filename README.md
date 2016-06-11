@@ -9,4 +9,4 @@ I'm using puma as a server instead of WEBrick as suggested by Heroku.
 
 This app was built with Rails, Bootstrap, JQuery and Imagemagick. Gems I added beyond the Heroku default list are at the top of the gemfile and commented.
 
-You can reach this app at [kcheques](https://kcheques.herokuapp.com). I've never made a rails app before so this was a good quick learning experience! There's probably bugs and there are no unit tests, I don't validate forms either but Rails will let you know ;)
+You can reach this app at [kcheques](https://kcheques.herokuapp.com). I've never made a rails app before so this was a good quick learning experience! There's probably bugs and there are no unit tests either.

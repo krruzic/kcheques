@@ -7,6 +7,12 @@
     <div class="divider"></div>
   </div>
 </nav>
+<% if flash[:notice] -%>
+  <div class="alert alert-warning">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
+    <%= flash[:notice] %>
+  </div>
+<% end %>
 <%= render 'form' %>
 
 <a href="<%= cheques_path %>" class="btn btn-info" style="margin-left: 10px">Back</a>

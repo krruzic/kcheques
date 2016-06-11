@@ -31,18 +31,19 @@ class ChequesController < ApplicationController
   def create
     @cheque = Cheque.new(cheque_params)
 
-    respond_to do |format|
-      if @cheque.save
-        create_cheque_image(@cheque)
-        format.html { redirect_to @cheque, notice: 'Cheque was successfully created.' }
-        format.json { render :show, status: :created, location: @cheque }
-      else
-        format.html { render :new }
-        format.json { render json: @cheque.errors, status: :unprocessable_entity }
-      end
+    # bad validation here, but I don't understand how to do it properly
+    if valid_money?(@cheque)
+      @cheque.save
+      create_cheque_image(@cheque)
+      redirect_to @cheque, :notice => 'Cheque was successfully created.'
+    else
+      puts "error"
+      redirect_to @cheque, :notice => 'Amount must be between 0.01 and 9999.99!'
     end
   end
 
+
+# NOT USED
   # PATCH/PUT /cheques/1
   # PATCH/PUT /cheques/1.json
   def update
@@ -77,6 +78,22 @@ class ChequesController < ApplicationController
     def cheque_params
       params.require(:cheque).permit(:name, :creation, :money)
     end
+
+
+    # really stupid validation but it werks
+    def valid_money?(cheque_data)
+      money_parts = cheque_data[:money].to_s.split(".") # get the dollars and cents
+      dollars = money_parts[0].to_i
+      if money_parts.count > 1 # if we have any cents, get those
+        cents = money_parts[1].to_i
+      end
+      if (cents.to_s.size > 2)
+        return false
+      end 
+      if (dollars+cents < 0) or (dollars > 9999)
+        return false
+      end
+    end 
 
     # big messy function to draw on the image
     def create_cheque_image(cheque_data)
