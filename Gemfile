@@ -25,6 +25,8 @@ gem 'rails_12factor', group: :production
 gem 'puma' 
 # image manipulation with imagemagick
 gem 'rmagick'
+# numbers to words
+gem 'to_words'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

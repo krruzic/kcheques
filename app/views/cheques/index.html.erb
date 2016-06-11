@@ -21,7 +21,7 @@
       <div class="navbar-header">
         <a class="navbar-brand" href="/cheques" id="home">KCheques</a>
       </div>
-      <div class="divider"></div>
+      <!-- <div class="divider"></div> -->
       <ul class="nav navbar-nav navbar-right" style="padding-right: 12px">
         <li class="active">
           <form action="" class="navbar-form" id="search" method="get" name=
@@ -41,16 +41,31 @@
   <div class="container">
     <div class="row"></div>
     <div class="row">
-      <% @cheques.each do |cheque| %>
+      <% if @cheques.each do |cheque| %>
       <div class="col-md-6" style="padding-bottom: 10px">
         <div class="panel panel-info" style="margin: 20px">
-          <div class="panel-heading text-center"><a class="" href="?person="+<%= cheque.name %>><%= cheque.name %></a> | <%= cheque.creation.strftime("%B #{cheque.creation.day.ordinalize}, %Y") %></div>
+          <div class="panel-heading">
+          <h3 class="panel-title pull-left">
+            <a class="" href="?person=<%= cheque.name %>"><%= cheque.name %></a> | <%= cheque.creation.strftime("%B #{cheque.creation.day.ordinalize}, %Y") %></h3>
+          <a class="btn btn-default pull-right" href=<%= "public/" + cheque.creation.strftime("%Y%m%d") + cheque.id.to_s + ".png"%>><span class="glyphicon glyphicon-download"></span></a>
+          <div class="clearfix"></div>
+          </div>
           <ul class="list-group">
-            <li class="list-group-item">Amount<p class="pull-right" style="text-right">$<%= cheque.value %></p></li>
+            <li class="list-group-item">Amount<p class="pull-right" style="text-right">$<%= cheque.money %></p></li>
           </ul>
-          <div class="panel-body"><%= image_tag "examplecheque.png", class: "img-responsive center-block" %></div>
+          <div class="panel-body"><%= image_tag cheque.creation.strftime("%Y%m%d") + cheque.id.to_s + ".png", class: "img-responsive center-block" %></div>
         </div>
       </div>
+      <% end.empty? %>
+        <div class="col-md-3 "></div>
+        <div class="col-md-6">
+        <section>
+        <div class="alert alert-info text-center">
+          "There's nothing here yet! Try making a cheque"
+        </div>
+        <div class="col-md-12" style="padding-bottom: 10px">
+        <%= image_tag "background.png", class: "img-responsive center-block" %>
+        </div>
       <% end %>
     </div>
   </div>

@@ -17,7 +17,7 @@
   </div>
   <div class="field">
     <%= f.label :creation %><br>
-    <%= f.hidden_field :creation, {:id => 'date_id'} %>
+    <%= f.hidden_field :creation, {:id => 'date_id', :value => Time.now.strftime('%Y-%m-%d')} %>
     <div style="overflow:hidden;">
     <div class="form-group">
         <div class="row">
@@ -29,9 +29,8 @@
   </div>
 </div>
   <div class="field">
-    <%= f.label :value %><br>
-    <%= f.number_field :value %>
-  </div>
+    <%= f.label :money %><br>
+    <%= f.text_field :money, :value => 123.23%>  </div>
   <div class="actions">
     <%= f.submit %>
   </div>
@@ -42,7 +41,6 @@
                 sideBySide: true,
                 format: 'YYYY-MM-DD'
             }).on('dp.change', function (e) {
-              alert("date changed!!");
               setDate(e.date);
             });
         });
