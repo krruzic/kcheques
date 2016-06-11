@@ -1,31 +1,58 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Cheques</h1>
+<!-- <h1>Listing Cheques</h1>
+ -->
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Creation</th>
-      <th>Value</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+</style>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<title>KCheques | Online Cheque generator</title>
 
-  <tbody>
-    <% @cheques.each do |cheque| %>
-      <tr>
-        <td><%= cheque.name %></td>
-        <td><%= cheque.creation %></td>
-        <td><%= cheque.value %></td>
-        <td><%= link_to 'Show', cheque %></td>
-        <td><%= link_to 'Edit', edit_cheque_path(cheque) %></td>
-        <td><%= link_to 'Destroy', cheque, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
 
-<br>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<body>
+<div class="background"></div>
+<div class="content">
 
-<%= link_to 'New Cheque', new_cheque_path %>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/cheques" id="home">KCheques</a>
+      </div>
+      <div class="divider"></div>
+      <ul class="nav navbar-nav navbar-right" style="padding-right: 12px">
+        <li class="active">
+          <form action="" class="navbar-form" id="search" method="get" name=
+          "search" role="search">
+            <input class="form-control" name="person" placeholder="Search"
+            type="text submit">
+          </form>
+        </li>
+        <li>
+          <p class="navbar-btn"><a class="btn btn-success" href=<%= new_cheque_path %>>New Cheque</a></p>
+        </li>
+      </ul>
+      <div class="divider"></div>
+    </div>
+  </nav>
+<div class="content">
+  <div class="container">
+    <div class="row"></div>
+    <div class="row">
+      <% @cheques.each do |cheque| %>
+      <div class="col-md-6" style="padding-bottom: 10px">
+        <div class="panel panel-info" style="margin: 20px">
+          <div class="panel-heading text-center"><a class="" href="?person="+<%= cheque.name %>><%= cheque.name %></a> | <%= cheque.creation.strftime("%B #{cheque.creation.day.ordinalize}, %Y") %></div>
+          <ul class="list-group">
+            <li class="list-group-item">Amount<p class="pull-right" style="text-right">$<%= cheque.value %></p></li>
+          </ul>
+          <div class="panel-body"><%= image_tag "examplecheque.png", class: "img-responsive center-block" %></div>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+</body>

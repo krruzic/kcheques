@@ -17,8 +17,17 @@
   </div>
   <div class="field">
     <%= f.label :creation %><br>
-    <%= f.date_select :creation %>
+    <%= f.hidden_field :creation, {:id => 'date_id'} %>
+    <div style="overflow:hidden;">
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-4">
+                <div id="datetimepicker12"></div>
+            </div>
+        </div>
+    </div>
   </div>
+</div>
   <div class="field">
     <%= f.label :value %><br>
     <%= f.number_field :value %>
@@ -26,4 +35,19 @@
   <div class="actions">
     <%= f.submit %>
   </div>
+      <script type="text/javascript">
+        $(function () {
+            $('#datetimepicker12').datetimepicker({
+                inline: true,
+                sideBySide: true,
+                format: 'YYYY-MM-DD'
+            }).on('dp.change', function (e) {
+              alert("date changed!!");
+              setDate(e.date);
+            });
+        });
+        function setDate(new_date) {
+          $('#date_id').val(new_date);
+        }
+    </script>
 <% end %>

@@ -5,6 +5,8 @@ class ChequesController < ApplicationController
   # GET /cheques.json
   def index
     @cheques = Cheque.all
+    @cheques = Cheque.where(nil) # creates an anonymous scope
+    @cheques = @cheques.person(params[:person]) if params[:person].present?
   end
 
   # GET /cheques/1

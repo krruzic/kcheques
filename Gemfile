@@ -13,7 +13,12 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
- 
+
+# boostrap for rails
+gem 'twitter-bootstrap-rails'
+# for datepicking: https://github.com/TrevorS/bootstrap3-datetimepicker-rails
+gem 'momentjs-rails', '>= 2.9.0'
+gem 'bootstrap3-datetimepicker-rails', '~> 4.17.37'
 # heroku asset serving and logging
 gem 'rails_12factor', group: :production
 # more robust webserver
