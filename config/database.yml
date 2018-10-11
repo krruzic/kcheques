@@ -80,6 +80,8 @@ test:
 #
 production:
   <<: *default
+  host: localhost
+  adapter: postgresql
   database: kcheques_production
-  username: kcheques
+  username: <%= ENV['KCHEQUES_DATABASE_USER'] %>
   password: <%= ENV['KCHEQUES_DATABASE_PASSWORD'] %>
